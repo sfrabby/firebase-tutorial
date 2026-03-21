@@ -13,7 +13,8 @@ class _firebaseState extends State<firebase> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal,
-        title: Text("FireBase"),
+        centerTitle: true,
+        title: Text("FireBase", style: TextStyle(color: Colors.white, fontSize: 16),),
       ),
       body: Column(
         children: [
