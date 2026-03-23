@@ -12,15 +12,14 @@ class _firebaseState extends State<firebase> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.green  ,
         centerTitle: true,
-        title: Text("FireBase", style: TextStyle(color: Colors.white, fontSize: 16),),
+        title: Text(
+          "FireBase",
+          style: TextStyle(fontSize: 16),
+        ),
       ),
-      body: Column(
-        children: [
-
-        ],
-      ),
+      body: Column(children: []),
     );
   }
 }
