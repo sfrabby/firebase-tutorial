@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../email_signup/UI.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -121,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const Text("Don't have an account?"),
                   TextButton(
                     onPressed: () {
-                      // সাইন আপ পেজে যাওয়ার লজিক
+                      Get.to(() => const SignUpScreen()); // '=>' ব্যবহার করলে এটি স্ক্রিনটি রিটার্ন করে
                     },
                     child: const Text("Sign Up", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.teal)),
                   ),
