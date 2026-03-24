@@ -1,3 +1,4 @@
+import 'package:fbase/screen/Home%20Page/ui.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -16,22 +17,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController CpasswordController = TextEditingController();
 
-
-  void createAccount ()async{
+  void createAccount() async {
     String Name = nameController.text.trim();
     String Email = emailController.text.trim();
     String Pass = passwordController.text.trim();
     String CPass = CpasswordController.text.trim();
 
-    if(Pass !=CPass){
+    if (Pass != CPass) {
       Get.snackbar("Warning", "Password not match");
-    }
-    else{
-      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: Email, password: Pass);
-      Get.snackbar("Congratulation ", "Account Successfully created");
+    } else {
+      try {
+        UserCredential userCredential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(email: Email, password: Pass);
+        nameController.clear();
+        emailController.clear();
+        passwordController.clear();
+        CpasswordController.clear();
 
+        Get.snackbar("Congratulation ", "Account Successfully created");
+      } on FirebaseAuthException catch (e) {
+        Get.snackbar("Error", e.message.toString());
+      }
     }
-
   }
 
   final _formKey = GlobalKey<FormState>(); // ভ্যালিডেশনের জন্য
