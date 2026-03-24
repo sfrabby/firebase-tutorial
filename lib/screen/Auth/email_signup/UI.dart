@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,10 +11,28 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  // কন্ট্রোলারগুলো ডিফাইন করা
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController CpasswordController = TextEditingController();
+
+
+  void createAccount ()async{
+    String Name = nameController.text.trim();
+    String Email = emailController.text.trim();
+    String Pass = passwordController.text.trim();
+    String CPass = CpasswordController.text.trim();
+
+    if(Pass !=CPass){
+      Get.snackbar("Warning", "Password not match");
+    }
+    else{
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: Email, password: Pass);
+      Get.snackbar("Congratulation ", "Account Successfully created");
+
+    }
+
+  }
 
   final _formKey = GlobalKey<FormState>(); // ভ্যালিডেশনের জন্য
   bool isPasswordVisible = false;
@@ -39,7 +59,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
               children: [
                 const Text(
                   "Create Account",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.teal),
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 const Text(
@@ -54,9 +78,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.person_outline),
                     labelText: "Full Name",
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
                   ),
-                  validator: (value) => value!.isEmpty ? "Enter your name" : null,
+                  validator: (value) =>
+                      value!.isEmpty ? "Enter your name" : null,
                 ),
                 const SizedBox(height: 20),
 
@@ -67,9 +94,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.email_outlined),
                     labelText: "Email Address",
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
                   ),
-                  validator: (value) => value!.contains("@") ? null : "Enter a valid email",
+                  validator: (value) =>
+                      value!.contains("@") ? null : "Enter a valid email",
                 ),
                 const SizedBox(height: 20),
 
@@ -80,13 +110,51 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.lock_outline),
                     suffixIcon: IconButton(
-                      icon: Icon(isPasswordVisible ? Icons.visibility : Icons.visibility_off),
-                      onPressed: () => setState(() => isPasswordVisible = !isPasswordVisible),
+                      icon: Icon(
+                        isPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
+                      onPressed: () => setState(
+                        () => isPasswordVisible = !isPasswordVisible,
+                      ),
                     ),
                     labelText: "Password",
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
                   ),
-                  validator: (value) => value!.length < 6 ? "Password must be 6+ characters" : null,
+                  validator: (value) => value!.length < 6
+                      ? "Password must be 6+ characters"
+                      : null,
+                ),
+
+                const SizedBox(height: 20),
+
+                //Conform password
+                TextFormField(
+                  controller: CpasswordController,
+                  obscureText: !isPasswordVisible,
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.lock_outline),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        isPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
+                      onPressed: () => setState(
+                        () => isPasswordVisible = !isPasswordVisible,
+                      ),
+                    ),
+                    labelText: "Conform Password",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                  validator: (value) => value!.length < 6
+                      ? "Password must be 6+ characters"
+                      : null,
                 ),
 
                 const SizedBox(height: 40),
@@ -98,23 +166,33 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.teal,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
                       elevation: 5,
                     ),
                     onPressed: () {
+                      createAccount();
                       if (_formKey.currentState!.validate()) {
                         // ভ্যালিডেশন পাস হলে এখানে Firebase বা API লজিক লিখবেন
                         print("Name: ${nameController.text}");
                         print("Email: ${emailController.text}");
-                        Get.snackbar("Success", "Account created successfully!",
-                            snackPosition: SnackPosition.BOTTOM,
-                            backgroundColor: Colors.green,
-                            colorText: Colors.white);
+                        Get.snackbar(
+                          "Success",
+                          "Account created successfully!",
+                          snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor: Colors.green,
+                          colorText: Colors.white,
+                        );
                       }
                     },
                     child: const Text(
                       "SIGN UP",
-                      style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -128,7 +206,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const Text("Already have an account?"),
                     TextButton(
                       onPressed: () => Get.back(), // লগইন পেজে ফিরে যাওয়া
-                      child: const Text("Login", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.teal)),
+                      child: const Text(
+                        "Login",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.teal,
+                        ),
+                      ),
                     ),
                   ],
                 ),
