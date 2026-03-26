@@ -34,7 +34,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         passwordController.clear();
         CpasswordController.clear();
 
-        Get.snackbar("Congratulation ", "Account Successfully created");
+        //Get.snackbar("Congratulation ", "Account Successfully created");
       } on FirebaseAuthException catch (e) {
         Get.snackbar("Error", e.message.toString());
       }
