@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,6 +15,20 @@ class _LoginScreenState extends State<LoginScreen> {
   // টেক্সট ফিল্ডের ডাটা ধরার জন্য কন্ট্রোলার
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  void Login ()async{
+    String email = emailController.text.trim();
+    String pass = passwordController.text.trim();
+
+    if(pass == "" || email == ""){
+      Get.snackbar("Warning ", "Inter Your Email & Pass");
+    }
+    else{
+      
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: pass);
+    }
+
+}
 
   bool isPasswordVisible = false; // পাসওয়ার্ড লুকানো বা দেখানোর জন্য
 
