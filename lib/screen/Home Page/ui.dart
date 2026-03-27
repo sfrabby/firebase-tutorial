@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class firebase extends StatefulWidget {
@@ -8,6 +9,12 @@ class firebase extends StatefulWidget {
 }
 
 class _firebaseState extends State<firebase> {
+
+  void LogOut()async{
+    FirebaseAuth.instance.signOut();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

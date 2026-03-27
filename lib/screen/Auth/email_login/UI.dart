@@ -13,7 +13,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  // টেক্সট ফিল্ডের ডাটা ধরার জন্য কন্ট্রোলার
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -29,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
             .signInWithEmailAndPassword(email: email, password: pass);
         if (userCredential != null) {
           Get.snackbar("Success", "Login Success");
-          Get.to(() => firebase());
+          Get.offAll(()=> firebase());
         }
       } on FirebaseAuthException catch (ex) {
         Get.snackbar("Warning", "Something Wrong");
@@ -37,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  bool isPasswordVisible = false; // পাসওয়ার্ড লুকানো বা দেখানোর জন্য
+  bool isPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               const SizedBox(height: 100),
 
-              // লোগো বা আইকন
+
               const Icon(
                 Icons.lock_person_rounded,
                 size: 100,
@@ -92,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
               // ২. Password TextField
               TextField(
                 controller: passwordController,
-                obscureText: !isPasswordVisible, // পাসওয়ার্ড হাইড রাখবে
+                obscureText: !isPasswordVisible,
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.lock_outline),
                   suffixIcon: IconButton(
