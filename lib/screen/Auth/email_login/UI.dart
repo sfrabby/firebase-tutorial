@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../Home Page/ui.dart';
 import '../email_signup/UI.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,19 +17,25 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  void Login ()async{
+  void Login() async {
     String email = emailController.text.trim();
     String pass = passwordController.text.trim();
 
-    if(pass == "" || email == ""){
+    if (pass == "" || email == "") {
       Get.snackbar("Warning ", "Inter Your Email & Pass");
+    } else {
+      try {
+        UserCredential userCredential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: email, password: pass);
+        if (userCredential != null) {
+          Get.snackbar("Success", "Login Success");
+          Get.to(() => firebase());
+        }
+      } on FirebaseAuthException catch (ex) {
+        Get.snackbar("Warning", "Something Wrong");
+      }
     }
-    else{
-      
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: pass);
-    }
-
-}
+  }
 
   bool isPasswordVisible = false; // পাসওয়ার্ড লুকানো বা দেখানোর জন্য
 
@@ -44,12 +51,20 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 100),
 
               // লোগো বা আইকন
-              const Icon(Icons.lock_person_rounded, size: 100, color: Colors.teal),
+              const Icon(
+                Icons.lock_person_rounded,
+                size: 100,
+                color: Colors.teal,
+              ),
               const SizedBox(height: 30),
 
               const Text(
                 "Welcome Back",
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black87),
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
               ),
               const Text(
                 "Login to your account",
@@ -66,7 +81,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   prefixIcon: const Icon(Icons.email_outlined),
                   labelText: "Email Address",
                   hintText: "example@mail.com",
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
                 ),
               ),
 
@@ -79,7 +96,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.lock_outline),
                   suffixIcon: IconButton(
-                    icon: Icon(isPasswordVisible ? Icons.visibility : Icons.visibility_off),
+                    icon: Icon(
+                      isPasswordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                    ),
                     onPressed: () {
                       setState(() {
                         isPasswordVisible = !isPasswordVisible;
@@ -87,7 +108,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                   labelText: "Password",
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
                 ),
               ),
 
@@ -98,7 +121,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {},
-                  child: const Text("Forgot Password?", style: TextStyle(color: Colors.teal)),
+                  child: const Text(
+                    "Forgot Password?",
+                    style: TextStyle(color: Colors.teal),
+                  ),
                 ),
               ),
 
@@ -111,21 +137,36 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.teal,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
                   ),
                   onPressed: () {
-                    // লগইন লজিক এখানে হবে
+
+                    Login();
                     String email = emailController.text;
                     String pass = passwordController.text;
 
-                    if(email.isEmpty || pass.isEmpty) {
-                      Get.snackbar("Error", "Please fill all fields",
-                          snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.redAccent, colorText: Colors.white);
+                    if (email.isEmpty || pass.isEmpty) {
+                      Get.snackbar(
+                        "Error",
+                        "Please fill all fields",
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: Colors.redAccent,
+                        colorText: Colors.white,
+                      );
                     } else {
                       print("Login with: $email");
                     }
                   },
-                  child: const Text("LOGIN", style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold)),
+                  child: const Text(
+                    "LOGIN",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
 
@@ -138,9 +179,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   const Text("Don't have an account?"),
                   TextButton(
                     onPressed: () {
-                      Get.to(() => const SignUpScreen()); // '=>' ব্যবহার করলে এটি স্ক্রিনটি রিটার্ন করে
+                      Get.to(
+                        () => const SignUpScreen(),
+                      ); // '=>' ব্যবহার করলে এটি স্ক্রিনটি রিটার্ন করে
                     },
-                    child: const Text("Sign Up", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.teal)),
+                    child: const Text(
+                      "Sign Up",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.teal,
+                      ),
+                    ),
                   ),
                 ],
               ),
