@@ -1,88 +1,152 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class PhoneLoginPage extends StatelessWidget {
+class PhoneLoginPage extends StatefulWidget {
   const PhoneLoginPage({super.key});
+
+  @override
+  State<PhoneLoginPage> createState() => _PhoneLoginPageState();
+}
+
+class _PhoneLoginPageState extends State<PhoneLoginPage> {
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  bool isPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // Logo বা Icon
-                const Icon(Icons.lock_person_rounded, size: 80, color: Colors.blue),
-                const SizedBox(height: 20),
-                const Text(
-                  "স্বাগতম!",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      backgroundColor: Colors.grey[100], // হালকা ব্যাকগ্রাউন্ড
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 25),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // উপরের আইকন এবং টেক্সট
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.teal.withOpacity(0.1),
+                  shape: BoxShape.circle,
                 ),
-                const SizedBox(height: 30),
+                child: const Icon(Icons.phonelink_lock_rounded, size: 80, color: Colors.teal),
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                "স্বাগতম!",
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.teal),
+              ),
+              const Text(
+                "আপনার একাউন্টে লগইন করুন",
+                style: TextStyle(fontSize: 15, color: Colors.grey),
+              ),
+              const SizedBox(height: 40),
 
-                // Phone Number TextField
-                TextField(
-                  keyboardType: TextInputType.phone,
-                  decoration: InputDecoration(
-                    labelText: "Phone Number",
-                    hintText: "01XXXXXXXXX",
-                    prefixIcon: const Icon(Icons.phone),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
+              // মেইন ইনপুট কার্ড
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 15,
+                      offset: const Offset(0, 5),
+                    )
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    // Phone Number Input
+                    TextField(
+                      controller: phoneController,
+                      keyboardType: TextInputType.phone,
+                      decoration: InputDecoration(
+                        labelText: "ফোন নাম্বার",
+                        prefixIcon: Container(
+                          padding: const EdgeInsets.all(12),
+                          child: const Text("+880 ", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.teal)),
+                        ),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide(color: Colors.grey.shade300),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                const SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
-                // Password TextField
-                TextField(
-                  obscureText: true, // পাসওয়ার্ড লুকানোর জন্য
-                  decoration: InputDecoration(
-                    labelText: "Password",
-                    prefixIcon: const Icon(Icons.lock),
-                    suffixIcon: const Icon(Icons.visibility_off),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
+                    // Password Input
+                    TextField(
+                      controller: passwordController,
+                      obscureText: !isPasswordVisible,
+                      decoration: InputDecoration(
+                        labelText: "পাসওয়ার্ড",
+                        prefixIcon: const Icon(Icons.lock_outline_rounded),
+                        suffixIcon: IconButton(
+                          icon: Icon(isPasswordVisible ? Icons.visibility : Icons.visibility_off),
+                          onPressed: () => setState(() => isPasswordVisible = !isPasswordVisible),
+                        ),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide(color: Colors.grey.shade300),
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-                const SizedBox(height: 10),
+              ),
 
-                // Forgot Password Button
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {},
-                    child: const Text("পাসওয়ার্ড ভুলে গেছেন?"),
-                  ),
+              const SizedBox(height: 10),
+
+              // Forgot Password
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () {},
+                  child: const Text("পাসওয়ার্ড ভুলে গেছেন?", style: TextStyle(color: Colors.teal, fontWeight: FontWeight.w600)),
                 ),
-                const SizedBox(height: 20),
+              ),
 
-                // Login Button
-                ElevatedButton(
+              const SizedBox(height: 30),
+
+              // Login Button
+              SizedBox(
+                width: double.infinity,
+                height: 55,
+                child: ElevatedButton(
                   onPressed: () {
-                    // লগইন লজিক এখানে হবে
                     Get.snackbar("Success", "লগইন করা হচ্ছে...",
-                        snackPosition: SnackPosition.BOTTOM);
+                        snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.teal, colorText: Colors.white);
                   },
                   style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    backgroundColor: Colors.blue,
-                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.teal,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                    elevation: 5,
                   ),
-                  child: const Text("লগইন করুন", style: TextStyle(fontSize: 16)),
+                  child: const Text("লগইন করুন", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
                 ),
-              ],
-            ),
+              ),
+
+              const SizedBox(height: 25),
+
+              // Register Link
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("একাউন্ট নেই? "),
+                  GestureDetector(
+                    onTap: () {
+                      // Navigate to Register Page
+                    },
+                    child: const Text("নতুন তৈরি করুন", style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold)),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
