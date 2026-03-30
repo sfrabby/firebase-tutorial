@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
             .signInWithEmailAndPassword(email: email, password: pass);
         if (userCredential != null) {
           Get.snackbar("Success", "Login Success");
-          Get.offAll(()=> firebase());
+          Get.offAll(()=> FirebaseHome());
         }
       } on FirebaseAuthException catch (ex) {
         Get.snackbar("Warning", "Something Wrong");
