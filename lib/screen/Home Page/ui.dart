@@ -24,10 +24,10 @@ class _FirebaseHomeState extends State<FirebaseHome> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title: const Text("Dashboard", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+        title: const Text(" firebase Dashboard", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
         centerTitle: true,
         backgroundColor: Colors.teal,
-        elevation: 0,
+        elevation: 5,
         actions: [
           IconButton(
             onPressed: logOut,
