@@ -19,12 +19,12 @@ class _PhoneSignUpPageState extends State<PhoneSignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100], // হালকা ব্যাকগ্রাউন্ড
+      backgroundColor: Colors.grey[200], // হালকা ব্যাকগ্রাউন্ড
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Get.back(),
         ),
       ),
@@ -123,7 +123,7 @@ class _PhoneSignUpPageState extends State<PhoneSignUpPage> {
                 child: ElevatedButton(
                   onPressed: () {
                     // লজিক এখানে হবে
-                    Get.snackbar("Success", "অ্যাকাউন্ট তৈরি করা হচ্ছে...",
+                    Get.snackbar("Success", "Creating account...",
                         backgroundColor: Colors.teal, colorText: Colors.white, snackPosition: SnackPosition.BOTTOM);
                   },
                   style: ElevatedButton.styleFrom(
@@ -131,7 +131,7 @@ class _PhoneSignUpPageState extends State<PhoneSignUpPage> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                     elevation: 5,
                   ),
-                  child: const Text("সাইন আপ করুন",
+                  child: const Text("SignUP",
                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
                 ),
               ),
@@ -142,10 +142,10 @@ class _PhoneSignUpPageState extends State<PhoneSignUpPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text("আগে থেকেই অ্যাকাউন্ট আছে? "),
+                  const Text("already have an account "),
                   GestureDetector(
                     onTap: () => Get.back(),
-                    child: const Text("লগইন করুন",
+                    child: const Text("LogIN",
                         style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold)),
                   ),
                 ],

@@ -34,11 +34,11 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
               ),
               const SizedBox(height: 20),
               const Text(
-                "স্বাগতম!",
+                "Welcome!",
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.teal),
               ),
               const Text(
-                "আপনার একাউন্টে লগইন করুন",
+                "Login to your account",
                 style: TextStyle(fontSize: 15, color: Colors.grey),
               ),
               const SizedBox(height: 40),
@@ -64,7 +64,7 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                       controller: phoneController,
                       keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
-                        labelText: "ফোন নাম্বার",
+                        labelText: "Phone Number",
                         prefixIcon: Container(
                           padding: const EdgeInsets.all(12),
                           child: const Text("+880 ", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.teal)),
@@ -83,7 +83,7 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                       controller: passwordController,
                       obscureText: !isPasswordVisible,
                       decoration: InputDecoration(
-                        labelText: "পাসওয়ার্ড",
+                        labelText: "Password",
                         prefixIcon: const Icon(Icons.lock_outline_rounded),
                         suffixIcon: IconButton(
                           icon: Icon(isPasswordVisible ? Icons.visibility : Icons.visibility_off),
@@ -107,7 +107,7 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {},
-                  child: const Text("পাসওয়ার্ড ভুলে গেছেন?", style: TextStyle(color: Colors.teal, fontWeight: FontWeight.w600)),
+                  child: const Text("Forgot Password?", style: TextStyle(color: Colors.teal, fontWeight: FontWeight.w600)),
                 ),
               ),
 
@@ -127,7 +127,7 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                     elevation: 5,
                   ),
-                  child: const Text("লগইন করুন", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+                  child: const Text("LOG IN", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
                 ),
               ),
 
@@ -137,12 +137,12 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text("একাউন্ট নেই? "),
+                  const Text("Don't have an account? "),
                   GestureDetector(
                     onTap: () {
                       // Navigate to Register Page
                     },
-                    child: const Text("নতুন তৈরি করুন", style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold)),
+                    child: const Text("SignUP", style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),

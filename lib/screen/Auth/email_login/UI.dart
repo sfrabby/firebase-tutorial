@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../Home Page/ui.dart';
 import '../email_signup/UI.dart';
+import '../phone_login/ui.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -28,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
             .signInWithEmailAndPassword(email: email, password: pass);
         if (userCredential != null) {
           Get.snackbar("Success", "Login Success");
-          Get.offAll(()=> FirebaseHome());
+          Get.offAll(() => FirebaseHome());
         }
       } on FirebaseAuthException catch (ex) {
         Get.snackbar("Warning", "Something Wrong");
@@ -48,7 +49,6 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             children: [
               const SizedBox(height: 100),
-
 
               const Icon(
                 Icons.lock_person_rounded,
@@ -127,9 +127,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
 
-              const SizedBox(height: 30),
-
-              // Login Button
               SizedBox(
                 width: double.infinity,
                 height: 55,
@@ -141,7 +138,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   onPressed: () {
-
                     Login();
                     String email = emailController.text;
                     String pass = passwordController.text;
@@ -168,8 +164,30 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-
               const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                height: 55,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.teal,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                  onPressed: () {
+                    Get.to(() => const PhoneLoginPage());
+                  },
+                  child: const Text(
+                    "SignIN With phone",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
 
               // Don't have an account?
               Row(
