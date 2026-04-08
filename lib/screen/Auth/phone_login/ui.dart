@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:fbase/screen/Auth/Phone%20Verify/ui.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,8 +14,25 @@ class PhoneLoginPage extends StatefulWidget {
 
 class _PhoneLoginPageState extends State<PhoneLoginPage> {
   final TextEditingController phoneController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
   bool isPasswordVisible = false;
+
+  void OTP (){
+    String Phone = "+88"+phoneController.text.trim();
+
+   FirebaseAuth.instance.verifyPhoneNumber(
+       phoneNumber: Phone,
+
+       verificationCompleted: (credential){},
+       verificationFailed: (ex){log(ex.code.toString());},
+       codeSent: (verificationId, resendToken){
+
+         Get.offAll(() => verification());
+
+       },
+       codeAutoRetrievalTimeout: (verificationId){},
+       timeout: Duration(seconds: 60)
+   );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,25 +98,6 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                       ),
                     ),
                     const SizedBox(height: 20),
-
-                    // Password Input
-                    TextField(
-                      controller: passwordController,
-                      obscureText: !isPasswordVisible,
-                      decoration: InputDecoration(
-                        labelText: "Password",
-                        prefixIcon: const Icon(Icons.lock_outline_rounded),
-                        suffixIcon: IconButton(
-                          icon: Icon(isPasswordVisible ? Icons.visibility : Icons.visibility_off),
-                          onPressed: () => setState(() => isPasswordVisible = !isPasswordVisible),
-                        ),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide(color: Colors.grey.shade300),
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -103,13 +105,6 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
               const SizedBox(height: 10),
 
               // Forgot Password
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {},
-                  child: const Text("Forgot Password?", style: TextStyle(color: Colors.teal, fontWeight: FontWeight.w600)),
-                ),
-              ),
 
               const SizedBox(height: 30),
 
