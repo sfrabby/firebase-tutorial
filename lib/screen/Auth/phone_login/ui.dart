@@ -114,6 +114,7 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                 height: 55,
                 child: ElevatedButton(
                   onPressed: () {
+                    OTP();
                     Get.snackbar("Success", "লগইন করা হচ্ছে...",
                         snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.teal, colorText: Colors.white);
                   },
