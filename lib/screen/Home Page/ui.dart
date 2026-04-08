@@ -22,10 +22,17 @@ class FirebaseHome extends StatefulWidget {
   }
 }*/
 
-Future<void> getSingleUser()async{
-  var collection = FirebaseFirestore.instance.collection("user").doc("aTkL1WBMkSnYETX3aJbX");
-  var snapshot = await collection.get();
-  log(snapshot.data().toString());
+// Future<void> getSingleUser()async{
+//   var collection = FirebaseFirestore.instance.collection("user").doc("aTkL1WBMkSnYETX3aJbX");
+//   var snapshot = await collection.get();
+//   log(snapshot.data().toString());
+// }
+
+Future<void> createUser() async {
+  Map<String, dynamic> user = {"name": "ratul", "email": "ratul@gmail.com"};
+  var collection = FirebaseFirestore.instance.collection("user");
+  var sanpshot = collection.add(user);
+  log("user added");
 }
 
 class _FirebaseHomeState extends State<FirebaseHome> {
@@ -73,8 +80,8 @@ class _FirebaseHomeState extends State<FirebaseHome> {
               child: Column(
                 children: [
                   InkWell(
-                    onTap : (){
-                      getSingleUser();
+                    onTap: () {
+                      createUser();
                     },
                     child: const CircleAvatar(
                       radius: 50,
