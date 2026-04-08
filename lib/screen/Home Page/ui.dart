@@ -1,4 +1,8 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../Auth/email_login/UI.dart'; // আপনার লগইন স্ক্রিন পাথ
@@ -8,6 +12,14 @@ class FirebaseHome extends StatefulWidget {
 
   @override
   State<FirebaseHome> createState() => _FirebaseHomeState();
+}
+
+Future<void> getUser() async {
+  var collection = FirebaseFirestore.instance.collection("user");
+  var snapshot = await collection.get();
+  for (var doc in snapshot.docs) {
+    log(doc.data().toString());
+  }
 }
 
 class _FirebaseHomeState extends State<FirebaseHome> {
@@ -24,7 +36,10 @@ class _FirebaseHomeState extends State<FirebaseHome> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title: const Text(" firebase Dashboard", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+        title: const Text(
+          " firebase Dashboard",
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
         centerTitle: true,
         backgroundColor: Colors.teal,
         elevation: 5,
@@ -59,11 +74,18 @@ class _FirebaseHomeState extends State<FirebaseHome> {
                   const SizedBox(height: 15),
                   Text(
                     user?.displayName ?? "User Name",
-                    style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                   Text(
                     user?.email ?? "No Email Found",
-                    style: TextStyle(fontSize: 14, color: Colors.white.withOpacity(0.8)),
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.white.withOpacity(0.8),
+                    ),
                   ),
                 ],
               ),
@@ -81,10 +103,26 @@ class _FirebaseHomeState extends State<FirebaseHome> {
                 crossAxisSpacing: 15,
                 mainAxisSpacing: 15,
                 children: [
-                  _buildMenuCard(Icons.person_outline, "My Profile", Colors.blue),
-                  _buildMenuCard(Icons.settings_outlined, "Settings", Colors.orange),
-                  _buildMenuCard(Icons.notifications_none_rounded, "Alerts", Colors.purple),
-                  _buildMenuCard(Icons.help_outline_rounded, "Support", Colors.green),
+                  _buildMenuCard(
+                    Icons.person_outline,
+                    "My Profile",
+                    Colors.blue,
+                  ),
+                  _buildMenuCard(
+                    Icons.settings_outlined,
+                    "Settings",
+                    Colors.orange,
+                  ),
+                  _buildMenuCard(
+                    Icons.notifications_none_rounded,
+                    "Alerts",
+                    Colors.purple,
+                  ),
+                  _buildMenuCard(
+                    Icons.help_outline_rounded,
+                    "Support",
+                    Colors.green,
+                  ),
                 ],
               ),
             ),
@@ -98,7 +136,9 @@ class _FirebaseHomeState extends State<FirebaseHome> {
                 width: double.infinity,
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(colors: [Colors.teal, Colors.tealAccent]),
+                  gradient: const LinearGradient(
+                    colors: [Colors.teal, Colors.tealAccent],
+                  ),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: const Row(
@@ -108,7 +148,11 @@ class _FirebaseHomeState extends State<FirebaseHome> {
                     Expanded(
                       child: Text(
                         "Welcome to our premium community!",
-                        style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],
@@ -147,7 +191,10 @@ class _FirebaseHomeState extends State<FirebaseHome> {
             child: Icon(icon, color: color, size: 30),
           ),
           const SizedBox(height: 10),
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
         ],
       ),
     );
