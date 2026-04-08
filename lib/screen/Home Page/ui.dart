@@ -14,12 +14,18 @@ class FirebaseHome extends StatefulWidget {
   State<FirebaseHome> createState() => _FirebaseHomeState();
 }
 
-Future<void> getUser() async {
+/*Future<void> getUser() async {
   var collection = FirebaseFirestore.instance.collection("user");
   var snapshot = await collection.get();
   for (var doc in snapshot.docs) {
     log(doc.data().toString());
   }
+}*/
+
+Future<void> getSingleUser()async{
+  var collection = FirebaseFirestore.instance.collection("user").doc("aTkL1WBMkSnYETX3aJbX");
+  var snapshot = await collection.get();
+  log(snapshot.data().toString());
 }
 
 class _FirebaseHomeState extends State<FirebaseHome> {
@@ -66,10 +72,15 @@ class _FirebaseHomeState extends State<FirebaseHome> {
               ),
               child: Column(
                 children: [
-                  const CircleAvatar(
-                    radius: 50,
-                    backgroundColor: Colors.white,
-                    child: Icon(Icons.person, size: 50, color: Colors.teal),
+                  InkWell(
+                    onTap : (){
+                      getSingleUser();
+                    },
+                    child: const CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.white,
+                      child: Icon(Icons.person, size: 50, color: Colors.teal),
+                    ),
                   ),
                   const SizedBox(height: 15),
                   Text(
