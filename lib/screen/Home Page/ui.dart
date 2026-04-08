@@ -28,11 +28,21 @@ class FirebaseHome extends StatefulWidget {
 //   log(snapshot.data().toString());
 // }
 
-Future<void> createUser() async {
-  Map<String, dynamic> user = {"name": "ratul", "email": "ratul@gmail.com"};
-  var collection = FirebaseFirestore.instance.collection("user");
-  var sanpshot = collection.add(user);
-  log("user added");
+// Future<void> createUser() async {
+//   Map<String, dynamic> user = {"name": "ratul", "email": "ratul@gmail.com"};
+//   await FirebaseFirestore.instance.collection("user").add(user);
+//   log("user added");
+// }
+
+Future<void> createUser ()async{
+  Map<String, dynamic> user = {"name": "Rittti", "email": "ritti@gmail.com"};
+  try{
+    await FirebaseFirestore.instance.collection("user").doc("ritti_id").set(user);
+    log("User added with set method");
+  }
+  catch(e){
+    log(e.toString());
+  }
 }
 
 class _FirebaseHomeState extends State<FirebaseHome> {
