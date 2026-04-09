@@ -34,15 +34,21 @@ class FirebaseHome extends StatefulWidget {
 //   log("user added");
 // }
 
-Future<void> createUser ()async{
-  Map<String, dynamic> user = {"name": "Rittti", "email": "ritti@gmail.com"};
-  try{
-    await FirebaseFirestore.instance.collection("user").doc("ritti_id").set(user);
-    log("User added with set method");
-  }
-  catch(e){
-    log(e.toString());
-  }
+// Future<void> createUser ()async{
+//   Map<String, dynamic> user = {"name": "Rittti", "email": "ritti@gmail.com"};
+//   try{
+//     await FirebaseFirestore.instance.collection("user").doc("ritti_id").set(user);
+//     log("User added with set method");
+//   }
+//   catch(e){
+//     log(e.toString());
+//   }
+// }
+
+Future<void> updateUser()async{
+  await FirebaseFirestore.instance.collection("user").doc("aTkL1WBMkSnYETX3aJbX").update({
+    "name" : "niyon"
+  });
 }
 
 class _FirebaseHomeState extends State<FirebaseHome> {
@@ -91,7 +97,7 @@ class _FirebaseHomeState extends State<FirebaseHome> {
                 children: [
                   InkWell(
                     onTap: () {
-                      createUser();
+                      updateUser();
                     },
                     child: const CircleAvatar(
                       radius: 50,
