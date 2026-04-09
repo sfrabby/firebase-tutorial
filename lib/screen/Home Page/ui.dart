@@ -6,7 +6,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../Auth/email_login/UI.dart';
-import '../User add/UI.dart'; // আপনার লগইন স্ক্রিন পাথ
+import '../User/User List/UI.dart';
+import '../User/User add/UI.dart'; // আপনার লগইন স্ক্রিন পাথ
 
 class FirebaseHome extends StatefulWidget {
   const FirebaseHome({super.key});
@@ -158,10 +159,16 @@ class _FirebaseHomeState extends State<FirebaseHome> {
                     "Settings",
                     Colors.orange,
                   ),
-                  _buildMenuCard(
-                    Icons.notifications_none_rounded,
-                    "Alerts",
-                    Colors.purple,
+                  InkWell(
+                    onTap: (){
+                      Get.to(()=>UserListScreen());
+
+                    },
+                    child: _buildMenuCard(
+                      Icons.person,
+                      "Users",
+                      Colors.purple,
+                    ),
                   ),
                   InkWell(
                     onTap: () {
