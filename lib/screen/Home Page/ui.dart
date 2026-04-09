@@ -5,7 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../Auth/email_login/UI.dart'; // আপনার লগইন স্ক্রিন পাথ
+import '../Auth/email_login/UI.dart';
+import '../User add/UI.dart'; // আপনার লগইন স্ক্রিন পাথ
 
 class FirebaseHome extends StatefulWidget {
   const FirebaseHome({super.key});
@@ -45,10 +46,20 @@ class FirebaseHome extends StatefulWidget {
 //   }
 // }
 
-Future<void> updateUser()async{
-  await FirebaseFirestore.instance.collection("user").doc("aTkL1WBMkSnYETX3aJbX").update({
-    "name" : "niyon"
-  });
+Future<void> updateUser() async {
+  await FirebaseFirestore.instance
+      .collection("user")
+      .doc("aTkL1WBMkSnYETX3aJbX")
+      .update({"name": "niyon"});
+
+  log("update user");
+}
+
+Future<void> deleteUser() async {
+  await FirebaseFirestore.instance
+      .collection("user")
+      .doc("lRuOU3MOwce6TCGFvTuT");
+  log("deleted user");
 }
 
 class _FirebaseHomeState extends State<FirebaseHome> {
@@ -152,10 +163,11 @@ class _FirebaseHomeState extends State<FirebaseHome> {
                     "Alerts",
                     Colors.purple,
                   ),
-                  _buildMenuCard(
-                    Icons.help_outline_rounded,
-                    "Support",
-                    Colors.green,
+                  InkWell(
+                    onTap: () {
+                      Get.to(() => AddUserScreen());
+                    },
+                    child: _buildMenuCard(Icons.edit, "Add user", Colors.green),
                   ),
                 ],
               ),
